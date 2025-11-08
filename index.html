@@ -1,0 +1,1523 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hybrid OTTPA Tractor Design | Engineering Design 2025</title>
+    <style>
+        :root {
+            --primary: #0f172a;
+            --secondary: #1e293b;
+            --accent: #3b82f6;
+            --accent-light: #60a5fa;
+            --text: #334155;
+            --text-light: #64748b;
+            --bg: #f8fafc;
+            --white: #ffffff;
+            --border: #e2e8f0;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.7;
+            color: var(--text);
+            background: var(--bg);
+            overflow-x: hidden;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: var(--white);
+            padding: 120px 20px 80px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><defs><pattern id="grid" width="100" height="100" patternUnits="userSpaceOnUse"><path d="M 100 0 L 0 0 0 100" fill="none" stroke="rgba(255,255,255,0.03)" stroke-width="1"/></pattern></defs><rect width="100%" height="100%" fill="url(%23grid)"/></svg>');
+            opacity: 0.5;
+        }
+
+        .hero-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero h1 {
+            font-size: 3.5em;
+            font-weight: 700;
+            margin-bottom: 15px;
+            letter-spacing: -0.02em;
+        }
+
+        .hero .subtitle {
+            font-size: 1.4em;
+            opacity: 0.85;
+            font-weight: 300;
+            margin-bottom: 25px;
+        }
+
+        .hero .meta {
+            display: flex;
+            gap: 40px;
+            flex-wrap: wrap;
+            opacity: 0.75;
+            font-size: 0.95em;
+        }
+
+        .meta-item {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .meta-label {
+            font-size: 0.85em;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 5px;
+            opacity: 0.6;
+        }
+
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Navigation Tabs */
+        .nav-tabs {
+            background: var(--white);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.04);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            margin-bottom: 60px;
+        }
+
+        .nav-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            gap: 0;
+            overflow-x: auto;
+        }
+
+        .nav-tab {
+            padding: 20px 30px;
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+            font-weight: 500;
+            color: var(--text-light);
+        }
+
+        .nav-tab:hover {
+            color: var(--accent);
+            background: rgba(59, 130, 246, 0.05);
+        }
+
+        .nav-tab.active {
+            color: var(--accent);
+            border-bottom-color: var(--accent);
+        }
+
+        /* Content Sections */
+        .section {
+            background: var(--white);
+            border-radius: 16px;
+            padding: 60px;
+            margin-bottom: 40px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+            border: 1px solid var(--border);
+        }
+
+        .section-header {
+            margin-bottom: 40px;
+        }
+
+        .section-title {
+            font-size: 2.5em;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 15px;
+            letter-spacing: -0.02em;
+        }
+
+        .section-description {
+            font-size: 1.15em;
+            color: var(--text-light);
+            max-width: 800px;
+        }
+
+        /* Stats Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin: 40px 0;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            padding: 40px 30px;
+            border-radius: 12px;
+            color: var(--white);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100px;
+            height: 100px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 50%;
+            transform: translate(30%, -30%);
+        }
+
+        .stat-number {
+            font-size: 3em;
+            font-weight: 700;
+            margin-bottom: 8px;
+            position: relative;
+        }
+
+        .stat-label {
+            font-size: 0.95em;
+            opacity: 0.8;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            font-weight: 500;
+        }
+
+        .stat-sublabel {
+            font-size: 0.85em;
+            opacity: 0.6;
+            margin-top: 5px;
+        }
+
+        /* Phase Cards */
+        .phase-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin: 40px 0;
+        }
+
+        .phase-card {
+            background: var(--white);
+            border: 2px solid var(--border);
+            border-radius: 12px;
+            padding: 35px;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .phase-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: var(--accent);
+            border-radius: 12px 0 0 12px;
+            transform: scaleY(0);
+            transition: transform 0.3s ease;
+        }
+
+        .phase-card:hover {
+            border-color: var(--accent);
+            transform: translateY(-5px);
+            box-shadow: 0 12px 24px rgba(59, 130, 246, 0.15);
+        }
+
+        .phase-card:hover::before {
+            transform: scaleY(1);
+        }
+
+        .phase-number {
+            display: inline-block;
+            width: 50px;
+            height: 50px;
+            background: var(--accent);
+            color: var(--white);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5em;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+
+        .phase-title {
+            font-size: 1.4em;
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 12px;
+        }
+
+        .phase-description {
+            color: var(--text-light);
+            line-height: 1.7;
+        }
+
+        /* Tables */
+        .table-wrapper {
+            overflow-x: auto;
+            margin: 40px 0;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: var(--white);
+        }
+
+        thead {
+            background: var(--primary);
+            color: var(--white);
+        }
+
+        th {
+            padding: 20px;
+            text-align: left;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.85em;
+            letter-spacing: 0.05em;
+        }
+
+        td {
+            padding: 20px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        tbody tr {
+            transition: background 0.2s ease;
+        }
+
+        tbody tr:hover {
+            background: rgba(59, 130, 246, 0.03);
+        }
+
+        tbody tr:last-child td {
+            border-bottom: none;
+        }
+
+        td strong {
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        /* Component Grid */
+        .component-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin: 40px 0;
+        }
+
+        .component-card {
+            background: var(--white);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 35px;
+            transition: all 0.3s ease;
+        }
+
+        .component-card:hover {
+            border-color: var(--accent);
+            box-shadow: 0 8px 24px rgba(59, 130, 246, 0.12);
+            transform: translateY(-3px);
+        }
+
+        .component-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 25px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid var(--border);
+        }
+
+        .component-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--accent) 0%, var(--accent-light) 100%);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-weight: 700;
+            font-size: 1.2em;
+        }
+
+        .component-title {
+            font-size: 1.3em;
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        .component-specs {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .spec-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+        }
+
+        .spec-item:last-child {
+            border-bottom: none;
+        }
+
+        .spec-label {
+            font-weight: 500;
+            color: var(--text-light);
+            font-size: 0.9em;
+        }
+
+        .spec-value {
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        /* Flow Diagram */
+        .flow-container {
+            background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);
+            padding: 50px;
+            border-radius: 16px;
+            margin: 40px 0;
+        }
+
+        .flow-step {
+            background: var(--white);
+            padding: 30px;
+            margin-bottom: 20px;
+            border-radius: 12px;
+            border-left: 4px solid var(--accent);
+            display: flex;
+            gap: 25px;
+            align-items: flex-start;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+        }
+
+        .flow-step:last-child {
+            margin-bottom: 0;
+        }
+
+        .flow-number {
+            min-width: 40px;
+            height: 40px;
+            background: var(--accent);
+            color: var(--white);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1.1em;
+        }
+
+        .flow-content strong {
+            color: var(--primary);
+            font-size: 1.1em;
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        .flow-content p {
+            color: var(--text-light);
+            margin: 0;
+        }
+
+        /* Equation Box */
+        .equation-box {
+            background: var(--white);
+            border: 2px solid var(--border);
+            border-left: 4px solid var(--accent);
+            padding: 40px;
+            border-radius: 12px;
+            text-align: center;
+            margin: 40px 0;
+            font-family: 'Courier New', monospace;
+        }
+
+        .equation {
+            font-size: 1.8em;
+            font-weight: 600;
+            color: var(--primary);
+            margin: 20px 0;
+            letter-spacing: 0.05em;
+        }
+
+        .equation-description {
+            color: var(--text-light);
+            font-family: 'Inter', sans-serif;
+            font-size: 0.95em;
+            margin-top: 15px;
+        }
+
+        /* Feature List */
+        .feature-list {
+            display: grid;
+            gap: 15px;
+            margin: 30px 0;
+        }
+
+        .feature-item {
+            background: var(--white);
+            border: 1px solid var(--border);
+            padding: 20px 25px;
+            border-radius: 10px;
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+            transition: all 0.3s ease;
+        }
+
+        .feature-item:hover {
+            border-color: var(--accent);
+            background: rgba(59, 130, 246, 0.02);
+            transform: translateX(5px);
+        }
+
+        .feature-check {
+            min-width: 24px;
+            height: 24px;
+            background: var(--accent);
+            color: var(--white);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8em;
+            font-weight: 700;
+        }
+
+        .feature-text {
+            flex: 1;
+        }
+
+        .feature-text strong {
+            color: var(--primary);
+        }
+
+        /* Highlight Box */
+        .highlight-box {
+            background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+            border-left: 4px solid var(--accent);
+            padding: 30px 35px;
+            border-radius: 12px;
+            margin: 40px 0;
+        }
+
+        .highlight-box strong {
+            color: var(--accent);
+            font-size: 1.1em;
+            display: block;
+            margin-bottom: 12px;
+        }
+
+        /* Reflection Section */
+        .reflection {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: var(--white);
+            padding: 60px;
+            border-radius: 16px;
+            margin-top: 60px;
+        }
+
+        .reflection h2 {
+            font-size: 2em;
+            margin-bottom: 25px;
+            color: var(--white);
+        }
+
+        .reflection p {
+            font-size: 1.1em;
+            line-height: 1.8;
+            opacity: 0.9;
+            margin-bottom: 20px;
+        }
+
+        .reflection p:last-child {
+            margin-bottom: 0;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--primary);
+            color: var(--white);
+            padding: 50px 20px;
+            margin-top: 80px;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .footer-title {
+            font-size: 1.3em;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+
+        .footer-meta {
+            opacity: 0.7;
+            font-size: 0.95em;
+            line-height: 1.8;
+        }
+
+        /* Responsive Design - Mobile First */
+        @media (max-width: 1400px) {
+            .container {
+                max-width: 100%;
+                padding: 20px;
+            }
+
+            .hero-content,
+            .nav-content,
+            .footer-content {
+                max-width: 100%;
+                padding: 0 20px;
+            }
+        }
+
+        @media (max-width: 1024px) {
+            .hero h1 {
+                font-size: 2.8em;
+            }
+
+            .hero .subtitle {
+                font-size: 1.2em;
+            }
+
+            .section {
+                padding: 40px 30px;
+            }
+
+            .section-title {
+                font-size: 2em;
+            }
+
+            .component-grid {
+                grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero {
+                padding: 60px 20px 50px;
+            }
+
+            .hero h1 {
+                font-size: 2em;
+                line-height: 1.2;
+            }
+
+            .hero .subtitle {
+                font-size: 1em;
+            }
+
+            .hero .meta {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .section {
+                padding: 30px 20px;
+                margin-bottom: 20px;
+            }
+
+            .section-title {
+                font-size: 1.8em;
+            }
+
+            .section-description {
+                font-size: 1em;
+            }
+
+            .stats-grid,
+            .phase-grid,
+            .component-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .nav-content {
+                justify-content: flex-start;
+                padding: 0;
+            }
+
+            .nav-tab {
+                padding: 15px 20px;
+                font-size: 0.9em;
+            }
+
+            .flow-container {
+                padding: 30px 20px;
+            }
+
+            .flow-step {
+                flex-direction: column;
+                padding: 20px;
+            }
+
+            .flow-number {
+                margin-bottom: 10px;
+            }
+
+            .table-wrapper {
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+            }
+
+            table {
+                min-width: 600px;
+            }
+
+            th, td {
+                padding: 12px;
+                font-size: 0.9em;
+            }
+
+            .equation {
+                font-size: 1.4em;
+            }
+
+            .stat-number {
+                font-size: 2.5em;
+            }
+
+            .component-card,
+            .phase-card {
+                padding: 25px;
+            }
+
+            .reflection {
+                padding: 40px 25px;
+            }
+
+            .highlight-box {
+                padding: 20px 25px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 1.6em;
+            }
+
+            .hero .subtitle {
+                font-size: 0.9em;
+            }
+
+            .section {
+                padding: 25px 15px;
+                border-radius: 12px;
+            }
+
+            .section-title {
+                font-size: 1.5em;
+            }
+
+            .stat-card {
+                padding: 30px 20px;
+            }
+
+            .stat-number {
+                font-size: 2em;
+            }
+
+            .stat-label {
+                font-size: 0.85em;
+            }
+
+            .phase-number {
+                width: 40px;
+                height: 40px;
+                font-size: 1.2em;
+            }
+
+            .phase-title {
+                font-size: 1.2em;
+            }
+
+            .component-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .component-icon {
+                width: 40px;
+                height: 40px;
+                font-size: 1em;
+            }
+
+            .component-title {
+                font-size: 1.1em;
+            }
+
+            .equation-box {
+                padding: 25px 15px;
+            }
+
+            .equation {
+                font-size: 1.2em;
+            }
+
+            .flow-container {
+                padding: 20px 15px;
+            }
+
+            .nav-tab {
+                padding: 12px 15px;
+                font-size: 0.85em;
+            }
+
+            th, td {
+                padding: 10px 8px;
+                font-size: 0.85em;
+            }
+
+            footer {
+                padding: 30px 15px;
+            }
+
+            .footer-title {
+                font-size: 1.1em;
+            }
+
+            .footer-meta {
+                font-size: 0.85em;
+            }
+        }
+
+        /* Ensure centered content on all screens */
+        .hero-content,
+        .nav-content,
+        .container,
+        .footer-content {
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Prevent horizontal scroll */
+        body {
+            overflow-x: hidden;
+            width: 100%;
+        }
+
+        * {
+            max-width: 100%;
+        }
+
+        /* Smooth transitions for responsive changes */
+        .hero,
+        .section,
+        .stat-card,
+        .phase-card,
+        .component-card {
+            transition: padding 0.3s ease, margin 0.3s ease;
+        }
+
+        /* Touch-friendly spacing on mobile */
+        @media (hover: none) and (pointer: coarse) {
+            .nav-tab,
+            .feature-item,
+            .component-card,
+            .phase-card {
+                min-height: 44px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="hero">
+        <div class="hero-content">
+            <h1>Hybrid OTTPA Super Mini Modified Tractor</h1>
+            <div class="subtitle">Phase 1: Research and System Concept</div>
+            <div class="meta">
+                <div class="meta-item">
+                    <div class="meta-label">Project Team</div>
+                    <div>Ivan J, Andy W, Jerry Z, Sanchit, Dhruv, Aauysh</div>
+                </div>
+                <div class="meta-item">
+                    <div class="meta-label">Course</div>
+                    <div>Engineering Design, Fall 2025</div>
+                </div>
+                <div class="meta-item">
+                    <div class="meta-label">Instructor</div>
+                    <div>Mr. Andrade</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <nav class="nav-tabs">
+        <div class="nav-content">
+            <div class="nav-tab active">Overview</div>
+            <div class="nav-tab">Specifications</div>
+            <div class="nav-tab">Regulations</div>
+            <div class="nav-tab">System Design</div>
+            <div class="nav-tab">Analysis</div>
+            <div class="nav-tab">Reflection</div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="section">
+            <div class="section-header">
+                <h2 class="section-title">Project Abstract</h2>
+                <p class="section-description">
+                    This document presents Phase 1 research and conceptual design for a hybrid electric mini tractor engineered to compete in Ontario Truck & Tractor Pulling Association (OTTPA) events. Our series-hybrid architecture combines a diesel generator with battery storage and dual electric motors to deliver 1500 Nm of torque per wheel—sufficient to lift the tractor's front end during competition pulls.
+                </p>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number">1500</div>
+                    <div class="stat-label">Nm Torque</div>
+                    <div class="stat-sublabel">Per Wheel Output</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">20</div>
+                    <div class="stat-label">kW Power</div>
+                    <div class="stat-sublabel">Generator Capacity</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">48V</div>
+                    <div class="stat-label">DC System</div>
+                    <div class="stat-sublabel">100Ah Battery Pack</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">2050</div>
+                    <div class="stat-label">lbs Limit</div>
+                    <div class="stat-sublabel">Maximum Weight</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-header">
+                <h2 class="section-title">Project Phases</h2>
+                <p class="section-description">
+                    Our development approach is structured across three distinct phases to ensure systematic progress and comprehensive documentation.
+                </p>
+            </div>
+
+            <div class="phase-grid">
+                <div class="phase-card">
+                    <div class="phase-number">1</div>
+                    <div class="phase-title">Conceptualization & Research</div>
+                    <p class="phase-description">
+                        Defining systems, layout, and requirements. Establishing foundation for detailed design without focusing on calculations. This current phase includes rules compliance, drivetrain concepts, and safety planning.
+                    </p>
+                </div>
+
+                <div class="phase-card">
+                    <div class="phase-number">2</div>
+                    <div class="phase-title">Calculations & CAD Design</div>
+                    <p class="phase-description">
+                        Translating concepts into functional designs with comprehensive engineering calculations. Includes detailed CAD modeling, structural analysis, and performance validation.
+                    </p>
+                </div>
+
+                <div class="phase-card">
+                    <div class="phase-number">3</div>
+                    <div class="phase-title">Reflection & Documentation</div>
+                    <p class="phase-description">
+                        Finalizing comprehensive report and evaluating results. Documentation of lessons learned, design decisions, and recommendations for future iterations.
+                    </p>
+                </div>
+            </div>
+
+            <div class="highlight-box">
+                <strong>Key Innovation</strong>
+                <p>Our hybrid drivetrain uses a diesel generator to power a battery pack, which supplies electric motors. This architecture provides instant torque delivery and superior performance compared to traditional mechanical drivetrains, while enabling modular upgrades and precise control.</p>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-header">
+                <h2 class="section-title">OTTPA Rules & Constraints</h2>
+                <p class="section-description">
+                    To maintain fairness, safety, and consistency across all competitors, the OTTPA enforces strict design rules that shape every aspect of our engineering approach.
+                </p>
+            </div>
+
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Constraint Type</th>
+                            <th>Requirements</th>
+                            <th>Compliance Strategy</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Weight & Dimensions</strong></td>
+                            <td>Max 2050 lbs, 8 ft length, 6 ft tread width</td>
+                            <td>Lightweight hybrid components, optimized frame design</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Tire Specification</strong></td>
+                            <td>18.4 x 16.1 allowed; no radial tires</td>
+                            <td>Standard pull tires with 0.25m effective radius</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Hitch & Drawbar</strong></td>
+                            <td>Min 6" from rear axle; Max 13" height</td>
+                            <td>Integrated into frame design specifications</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Drivetrain Safety</strong></td>
+                            <td>Reverse lockout, full driveshaft shielding (5/16" steel)</td>
+                            <td>Electronic lockout, protective housing integrated</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Electrical Safety</strong></td>
+                            <td>Kill switch, battery disconnect, air shut-off</td>
+                            <td>Redundant safety systems with external access</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Driver Protection</strong></td>
+                            <td>Roll cage, seatbelts, neck brace, fire extinguisher</td>
+                            <td>Integrated roll cage exceeding OTTPA specifications</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-header">
+                <h2 class="section-title">Hybrid System Architecture</h2>
+                <p class="section-description">
+                    Our series-hybrid configuration eliminates the mechanical connection between engine and wheels, providing superior control, efficiency, and performance characteristics.
+                </p>
+            </div>
+
+            <div class="flow-container">
+                <div class="flow-step">
+                    <div class="flow-number">1</div>
+                    <div class="flow-content">
+                        <strong>Generation</strong>
+                        <p>Diesel engine rotates a 20 kW alternator at constant optimal speed, maximizing fuel efficiency and reducing emissions compared to variable-speed operation</p>
+                    </div>
+                </div>
+
+                <div class="flow-step">
+                    <div class="flow-number">2</div>
+                    <div class="flow-content">
+                        <strong>Storage</strong>
+                        <p>Battery pack (48V, 100Ah) buffers energy and supplies peak loads during critical pull phases, enabling power delivery beyond generator capacity</p>
+                    </div>
+                </div>
+
+                <div class="flow-step">
+                    <div class="flow-number">3</div>
+                    <div class="flow-content">
+                        <strong>Control</strong>
+                        <p>Dual motor controllers regulate torque delivery using field-oriented control (FOC), providing precise response to throttle input with 500A capacity per channel</p>
+                    </div>
+                </div>
+
+                <div class="flow-step">
+                    <div class="flow-number">4</div>
+                    <div class="flow-content">
+                        <strong>Propulsion</strong>
+                        <p>Rear-mounted electric motors drive wheels through reduction gearing, delivering instant torque from 0 RPM with approximately 10:1 reduction ratio</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-header">
+                <h2 class="section-title">System Components</h2>
+                <p class="section-description">
+                    Each component is selected for optimal performance within weight and efficiency constraints.
+                </p>
+            </div>
+
+            <div class="component-grid">
+                <div class="component-card">
+                    <div class="component-header">
+                        <div class="component-icon">DG</div>
+                        <div class="component-title">Diesel Generator</div>
+                    </div>
+                    <div class="component-specs">
+                        <div class="spec-item">
+                            <span class="spec-label">Power Output</span>
+                            <span class="spec-value">20 kW</span>
+                        </div>
+                        <div class="spec-item">
+                            <span class="spec-label">Voltage</span>
+                            <span class="spec-value">48V DC</span>
+                        </div>
+                        <div class="spec-item">
+                            <span class="spec-label">Function</span>
+                            <span class="spec-value">Primary power source</span>
+                        </div>
+                        <div class="spec-item">
+                            <span class="spec-label">Key Advantage</span>
+                            <span class="spec-value">Constant optimal speed</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="component-card">
+                    <div class="component-header">
+                        <div class="component-icon">BP</div>
+                        <div class="component-title">Battery Pack</div>
+                    </div>
+                    <div class="component-specs">
+                        <div class="spec-item">
+                            <span class="spec-label">Voltage</span>
+                            <span class="spec-value">48V</span>
+                        </div>
+                        <div class="spec-item">
+                            <span class="spec-label">Capacity</span>
+                            <span class="spec-value">100 Ah</span>
+                        </div>
+                        <div class="spec-item">
+                            <span class="spec-label">Function</span>
+                            <span class="spec-value">Energy buffer</span>
+                        </div>
+                        <div class="spec-item">
+                            <span class="spec-label">Key Advantage</span>
+                            <span class="spec-value">Peak power assist</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="component-card">
+                    <div class="component-header">
+                        <div class="component-icon">MC</div>
+                        <div class="component-title">Motor Controllers</div>
+                    </div>
+                    <div class="component-specs">
+                        <div class="spec-item">
+                            <span class="spec-label">Type</span>
+                            <span class="spec-value">Dual-channel FOC</span>
+                        </div>
+                        <div class="spec-item">
+                            <span class="spec-label">Current Rating</span>
+                            <span class="spec-value">500A per channel</span>
+                        </div>
+                        <div class="spec-item">
+                            <span class="spec-label">Function</span>
+                            <span class="spec-value">Torque management</span>
+                        </div>
+                        <div class="spec-item">
+                            <span class="spec-label">Key Advantage</span>
+                            <span class="spec-value">Precise response</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="component-card">
+                    <div class="component-header">
+                        <div class="component-icon">EM</div>
+                        <div class="component-title">Electric Motors</div>
+                    </div>
+                    <div class="component-specs">
+                        <div class="spec-item">
+                            <span class="spec-label">Torque Output</span>
+                            <span class="spec-value">1500 Nm each</span>
+                        </div>
+                        <div class="spec-item">
+                            <span class="spec-label">Configuration</span>
+                            <span class="spec-value">Rear-mounted dual</span>
+                        </div>
+                        <div class="spec-item">
+                            <span class="spec-label">Function</span>
+                            <span class="spec-value">Wheel propulsion</span>
+                        </div>
+                        <div class="spec-item">
+                            <span class="spec-label">Key Advantage</span>
+                            <span class="spec-value">Instant torque</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="component-card">
+                    <div class="component-header">
+                        <div class="component-icon">SS</div>
+                        <div class="component-title">Sensor Suite</div>
+                    </div>
+                    <div class="component-specs">
+                        <div class="spec-item">
+                            <span class="spec-label">Measurements</span>
+                            <span class="spec-value">Multi-parameter</span>
+                        </div>
+                        <div class="spec-item">
+                            <span class="spec-label">Monitoring</span>
+                            <span class="spec-value">Real-time data</span>
+                        </div>
+                        <div class="spec-item">
+                            <span class="spec-label">Function</span>
+                            <span class="spec-value">System optimization</span>
+                        </div>
+                        <div class="spec-item">
+                            <span class="spec-label">Key Advantage</span>
+                            <span class="spec-value">Predictive protection</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="component-card">
+                    <div class="component-header">
+                        <div class="component-icon">FS</div>
+                        <div class="component-title">Frame Structure</div>
+                    </div>
+                    <div class="component-specs">
+                        <div class="spec-item">
+                            <span class="spec-label">Design Type</span>
+                            <span class="spec-value">Triangulated space-frame</span>
+                        </div>
+                        <div class="spec-item">
+                            <span class="spec-label">Material</span>
+                            <span class="spec-value">Steel tubing</span>
+                        </div>
+                        <div class="spec-item">
+                            <span class="spec-label">Function</span>
+                            <span class="spec-value">Structural integrity</span>
+                        </div>
+                        <div class="spec-item">
+                            <span class="spec-label">Key Feature</span>
+                            <span class="spec-value">Integrated roll cage</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-header">
+                <h2 class="section-title">Torque & Power Analysis</h2>
+                <p class="section-description">
+                    Torque requirements determine motor selection and power system capacity. We calculate wheel torque from traction force and wheel geometry.
+                </p>
+            </div>
+
+            <div class="equation-box">
+                <p style="color: var(--text-light); margin-bottom: 20px;">Fundamental Torque Equation</p>
+                <div class="equation">T = F × r</div>
+                <p class="equation-description">where T = torque, F = traction force, r = wheel radius</p>
+            </div>
+
+            <p style="margin: 30px 0;">For a target traction force of 6000 N per wheel with 0.25 m effective radius (18.4 × 16.1 tire specification):</p>
+
+            <div class="equation-box">
+                <div class="equation">T = 6000 × 0.25 = 1500 Nm</div>
+            </div>
+
+            <div class="highlight-box">
+                <strong>Performance Significance</strong>
+                <p>This torque level provides sufficient force to lift the tractor's front end—a key indicator of pulling capability. Front-end lift transfers weight to the rear wheels, maximizing traction at the crucial moment when sled resistance peaks.</p>
+            </div>
+
+            <h3 style="font-size: 1.5em; color: var(--primary); margin-top: 50px; margin-bottom: 20px;">Power Requirements</h3>
+            <p>Continuous power demand depends on pull duration and resistance profile. The diesel generator must sustain base load while the battery handles transient peaks. A 20 kW generator provides approximately 27 horsepower—adequate for sustained pulling without battery depletion.</p>
+        </div>
+
+        <div class="section">
+            <div class="section-header">
+                <h2 class="section-title">Control System Design</h2>
+                <p class="section-description">
+                    The control architecture manages power flow between generator, battery, and motors while optimizing for performance and component protection.
+                </p>
+            </div>
+
+            <div class="feature-list">
+                <div class="feature-item">
+                    <div class="feature-check">✓</div>
+                    <div class="feature-text">
+                        <strong>Supervisory Level:</strong> Monitors battery state-of-charge, generator output, and thermal conditions with automated decision-making
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-check">✓</div>
+                    <div class="feature-text">
+                        <strong>Power Management:</strong> Balances generator load with motor demand using battery as buffer for optimal efficiency
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-check">✓</div>
+                    <div class="feature-text">
+                        <strong>Motor Control:</strong> Field-oriented control delivers precise torque response to throttle input with minimal latency
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-check">✓</div>
+                    <div class="feature-text">
+                        <strong>Safety Monitoring:</strong> Tracks temperature, current, and speed limits with automatic protection and fault handling
+                    </div>
+                </div>
+            </div>
+
+            <h3 style="font-size: 1.5em; color: var(--primary); margin-top: 50px; margin-bottom: 20px;">Critical Sensor Measurements</h3>
+            
+            <div class="component-grid">
+                <div class="component-card">
+                    <div class="component-header">
+                        <div class="component-icon">E</div>
+                        <div class="component-title">Electrical Parameters</div>
+                    </div>
+                    <div class="component-specs">
+                        <div class="spec-item">
+                            <span class="spec-label">Battery Monitoring</span>
+                            <span class="spec-value">Voltage & current (bidirectional)</span>
+                        </div>
+                        <div class="spec-item">
+                            <span class="spec-label">Motor Currents</span>
+                            <span class="spec-value">Phase current sensing</span>
+                        </div>
+                        <div class="spec-item">
+                            <span class="spec-label">Generator Output</span>
+                            <span class="spec-value">Power measurement</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="component-card">
+                    <div class="component-header">
+                        <div class="component-icon">T</div>
+                        <div class="component-title">Thermal Management</div>
+                    </div>
+                    <div class="component-specs">
+                        <div class="spec-item">
+                            <span class="spec-label">Motor Temperature</span>
+                            <span class="spec-value">Multi-point sensing</span>
+                        </div>
+                        <div class="spec-item">
+                            <span class="spec-label">Controller Heat</span>
+                            <span class="spec-value">Thermal monitoring</span>
+                        </div>
+                        <div class="spec-item">
+                            <span class="spec-label">Coolant System</span>
+                            <span class="spec-value">Oil & coolant temps</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="component-card">
+                    <div class="component-header">
+                        <div class="component-icon">P</div>
+                        <div class="component-title">Performance Metrics</div>
+                    </div>
+                    <div class="component-specs">
+                        <div class="spec-item">
+                            <span class="spec-label">Wheel Speed</span>
+                            <span class="spec-value">Traction control input</span>
+                        </div>
+                        <div class="spec-item">
+                            <span class="spec-label">Torque Output</span>
+                            <span class="spec-value">Real-time calculation</span>
+                        </div>
+                        <div class="spec-item">
+                            <span class="spec-label">System Efficiency</span>
+                            <span class="spec-value">Power flow analysis</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <p style="margin-top: 30px; color: var(--text-light);">Real-time sensor data enables predictive protection—reducing current before components reach thermal limits rather than reacting after damage occurs.</p>
+        </div>
+
+        <div class="section">
+            <div class="section-header">
+                <h2 class="section-title">Safety Systems</h2>
+                <p class="section-description">
+                    Comprehensive safety features ensure driver protection and regulatory compliance throughout all operational scenarios.
+                </p>
+            </div>
+
+            <div class="feature-list">
+                <div class="feature-item">
+                    <div class="feature-check">✓</div>
+                    <div class="feature-text">Roll cage meeting structural specifications with integrated mounting points for all safety equipment</div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-check">✓</div>
+                    <div class="feature-text">Five-point harness and neck restraint system for driver protection during high-G maneuvers</div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-check">✓</div>
+                    <div class="feature-text">Remote engine kill switch accessible from outside vehicle for emergency shutdown</div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-check">✓</div>
+                    <div class="feature-text">Battery disconnect system providing complete electrical isolation in emergency situations</div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-check">✓</div>
+                    <div class="feature-text">Air intake shut-off valve to stop diesel engine by oxygen deprivation if necessary</div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-check">✓</div>
+                    <div class="feature-text">Fire suppression equipment with automatic activation and manual override capability</div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-check">✓</div>
+                    <div class="feature-text">Full-coverage fenders and skid plates protecting drivetrain components from debris</div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-check">✓</div>
+                    <div class="feature-text">Driveshaft shielding (5/16" steel or 3/8" aluminum) for complete rotational component protection</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-header">
+                <h2 class="section-title">Future Development Roadmap</h2>
+                <p class="section-description">
+                    This Phase 1 foundation enables advanced features in subsequent development cycles.
+                </p>
+            </div>
+
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Feature</th>
+                            <th>Description</th>
+                            <th>Expected Benefit</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Regenerative Braking</strong></td>
+                            <td>Recover kinetic energy during deceleration phases</td>
+                            <td>Extended battery life, improved efficiency</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Torque Vectoring</strong></td>
+                            <td>Independent wheel control for differential torque</td>
+                            <td>Enhanced traction and stability control</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Telemetry System</strong></td>
+                            <td>Real-time performance data logging and wireless transmission</td>
+                            <td>Data-driven optimization and diagnostics</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Adaptive Control</strong></td>
+                            <td>Machine learning algorithms for power management</td>
+                            <td>Self-optimizing performance over time</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="section reflection">
+            <h2>Project Reflection</h2>
+            <p>
+                This project integrates mechanical, electrical, and control engineering into a cohesive system design. I learned to balance competing constraints—weight versus strength, power versus efficiency, complexity versus reliability—while meeting strict regulatory requirements.
+            </p>
+            <p>
+                Working with hybrid powertrains revealed how electric propulsion fundamentally changes vehicle dynamics. The instant torque response and precise control enable performance impossible with mechanical drivetrains, while the modular architecture allows iterative improvement without complete redesign.
+            </p>
+            <p>
+                The interdisciplinary nature of this project mirrors real-world mechatronics engineering, where system-level thinking matters as much as component-level expertise. Understanding how to calculate torque requirements, balance power generation with storage, and organize complex engineering documentation has prepared me for the technical depth required in my future studies.
+            </p>
+            <p>
+                <strong>This experience directly supports my goal of studying mechatronics engineering.</strong> The project demanded technical depth in multiple domains while requiring professional documentation and systematic design methodology—skills essential for any engineering career. The ability to translate abstract concepts into concrete specifications, while maintaining awareness of practical constraints, represents the core competency of successful engineering practice.
+            </p>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-title">Hybrid OTTPA Tractor Design Project</div>
+            <div class="footer-meta">
+                Phase 1 Complete | Engineering Design Fall 2025<br>
+                Ivan J, Andy W, Jerry Z, Sanchit, Dhruv, Aauysh | Instructor: Mr. Andrade
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scroll to sections
+        const navTabs = document.querySelectorAll('.nav-tab');
+        const sections = document.querySelectorAll('.section');
+
+        navTabs.forEach((tab, index) => {
+            tab.addEventListener('click', () => {
+                // Remove active class from all tabs
+                navTabs.forEach(t => t.classList.remove('active'));
+                // Add active class to clicked tab
+                tab.classList.add('active');
+                
+                // Scroll to corresponding section
+                if (sections[index]) {
+                    sections[index].scrollIntoView({ 
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Update active tab on scroll
+        window.addEventListener('scroll', () => {
+            let current = '';
+            
+            sections.forEach((section, index) => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (window.pageYOffset >= sectionTop - 200) {
+                    current = index;
+                }
+            });
+
+            navTabs.forEach((tab, index) => {
+                tab.classList.remove('active');
+                if (index === current) {
+                    tab.classList.add('active');
+                }
+            });
+        });
+    </script>
